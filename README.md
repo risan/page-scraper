@@ -1,5 +1,11 @@
 # Page Scraper
 
+## Installation
+
+```bash
+npm install page-scraper --save
+```
+
 ## Basic Usage
 
 ```js

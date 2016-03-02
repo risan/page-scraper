@@ -1,7 +1,7 @@
 {
   "name": "page-scraper",
   "title": "Web page scraper for Node.js",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Web page scraper for Node.js.",
   "author": {
     "name": "Risan Bagja Pradana",
