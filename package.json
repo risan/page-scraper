@@ -1,0 +1,30 @@
+{
+  "name": "page-scraper",
+  "title": "Web page scraper for Node.js",
+  "version": "1.0.0",
+  "description": "Web page scraper for Node.js.",
+  "author": {
+    "name": "Risan Bagja Pradana",
+    "email": "risanbagja@gmail.com",
+    "url": "https://github.com/risan"
+  },
+  "license": "MIT",
+  "main": "index.js",
+  "keywords": [
+      "scraper",
+      "crawler",
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/risan/page-scraper.git"
+  },
+  "bugs": {
+    "url": "https://github.com/risan/page-scraper/issues"
+  },
+  "homepage": "https://github.com/risan/page-scraper",
+  "dependencies": {
+    "cheerio": "^0.20.0",
+    "extend": "^3.0.0",
+    "request": "^2.69.0"
+  }
+}
