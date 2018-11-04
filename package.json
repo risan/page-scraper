@@ -29,5 +29,7 @@
     "cheerio": "^1.0.0-rc.2",
     "puppeteer": "^1.10.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "jest": "^23.6.0"
+  }
 }
