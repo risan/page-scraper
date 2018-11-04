@@ -30,15 +30,28 @@ class PageScrapper {
 
     this.log(`⏳ Opening url: ${url}...`);
 
-    await page.goto(url);
+    const response = await page.goto(url);
 
     const content = await page.content();
 
-    this.log('👍🏻 Content is loaded;');
-
     await page.close();
 
-    return cheerio.load(content);
+    const $ = cheerio.load(content);
+
+    if (!response.ok()) {
+      this.log(`⚠️ HTTP ${response.status()}: ${response.statusText()}`);
+
+      const error = new Error(response.statusText());
+
+      error.status = response.status();
+      error.$ = $;
+
+      throw error;
+    }
+
+    this.log(`✅ HTTP ${response.status()}: ${response.statusText()}`);
+
+    return $;
   }
 
   /**
