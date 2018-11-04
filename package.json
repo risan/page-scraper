@@ -22,9 +22,11 @@
   ],
   "main": "src/index.js",
   "engines": {
-    "node": ">= 6"
+    "node": ">=7.6.0"
   },
   "scripts": {},
-  "dependencies": {},
+  "dependencies": {
+    "puppeteer": "^1.10.0"
+  },
   "devDependencies": {}
 }
