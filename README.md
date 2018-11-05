@@ -1,63 +1,78 @@
 # Page Scraper
 
-Web page scraper for Node.js based on [Request](https://github.com/request/request) and [Cheerio](https://github.com/cheeriojs/cheerio).
+A web page scraper with jQuery like syntax, built on top of [Puppeteer](https://pptr.dev).
 
-## Dependencies
+## Requirement
 
-This module relies on the following packages to work:
-
-* [Request](https://github.com/request/request)
-* [Cheerio](https://github.com/cheeriojs/cheerio)
-* [Node Extend](https://github.com/justmoon/node-extend)
+* [Node](https://nodejs.org/) version `>= 7.6.0`
 
 ## Installation
 
-To install this package using [NPM](https://www.npmjs.com), simply run the following command inside your project directory:
-
 ```bash
-npm install page-scraper --save
+$ npm install page-scraper
+
+# Or if you use Yarn
+$ yarn add page-scraper
 ```
 
-The other way is to add the `page-scraper` package into your `package.json` dependencies list:
-
-```json
-"dependencies": {
-    "page-scraper": "^1.0.0"
-}
-```
-
-Once you've updated your `package.json` file, run the following command to install it:
-
-```bash
-npm install
-```
-
-## Basic Usage
-
-Here's some simple usage of this page scraper module.
+## Quick Start
 
 ```js
-// Import the Page Scraper module.
-var PageScraper = require('page-scraper');
+const PageScraper = require('page-scraper');
 
-// Create an instance of Page Scraper.
-var pageScraper = new PageScraper({
-    baseUrl: 'http://example.com'
-});
+(async () => {
+  // Create a new PageScraper instance.
+  const scraper = new PageScraper();
 
-// Scrape the page http://example.com/foo
-pageScraper.scrape('/foo', function(error, $) {
-    // An error occured.
-    if (error) {
-        console.error(error);
-        return;
-    }
+  // Open the target URL.
+  const $ = await scraper.open('https://example.com');
 
-    // Use the `$` to extract the page data.
-    var title = $('h1.page-title').text();
-    var content = $('p.page-content').text();
+  // Extract the page with jQuery like syntax.
+  console.log({
+    title: $('title').text(),
+    heading: $('h1').text(),
+    paragraphs: $('p').map((index, el) => $(el).text()).get(),
+    link: $('p > a').attr('href')
+  });
 
-    console.log(title);
-    console.log(content);
-});
+  // Don't forget to release the resources once you're done
+  scraper.releaseResources();
+})();
 ```
+
+Check the [Cheerio documentation](https://cheerio.js.org/) for a complete guide on how to scrape the page using jQuery like syntax.
+
+## API
+
+### `PageScraper()`
+
+Create a new instance of `PageScraper`.
+
+```js
+new PageScraper({ silent: Boolean = true })
+```
+
+* `silent` (default: `true`): Do not print the log message to the terminal.
+
+### `PageScraper.open`
+
+Scrape the given page URL.
+
+```js
+PageScraper.open(url: String): Promise
+```
+
+* `url`: The page URL that we want to scrape.
+* It returns a `Promise`, which when its resolved we'll get the [`Cheerio`](https://cheerio.js.org/) object.
+
+### `PageScraper.releaseResources`
+
+Realease all resources. This will close the currently active Puppeteer browser.
+
+```js
+PageScraper.releaseResources(): Promise
+```
+
+## License
+
+MIT © [Risan Bagja Pradana](https://bagja.net)
