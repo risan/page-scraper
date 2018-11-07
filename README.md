@@ -5,7 +5,7 @@
 [![Maintainability](https://flat.badgen.net/codeclimate/maintainability/risan/page-scraper)](https://codeclimate.com/github/risan/page-scraper)
 [![Latest Stable Version](https://flat.badgen.net/npm/v/page-scraper)](https://www.npmjs.com/package/page-scraper)
 [![Node Version](https://flat.badgen.net/npm/node/page-scraper)](https://www.npmjs.com/package/page-scraper)
-[![Code Style: Prettier](https://flat.badgen.net/badge/code%20style/prettier/ff66b3)](https://github.com/risan/page-scraper)
+[![Code Style: Prettier](https://flat.badgen.net/badge/code%20style/prettier/ff69b4)](https://github.com/prettier/prettier)
 [![License](https://flat.badgen.net/npm/license/page-scraper)](https://github.com/risan/page-scraper/blob/master/LICENSE)
 
 Web page scraper with a jQuery-like syntax for Node. Powered by [got](https://github.com/sindresorhus/got) and [cheerio](https://cheerio.js.org/).
