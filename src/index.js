@@ -1,87 +1,83 @@
 const cheerio = require('cheerio');
-const puppeteer = require('puppeteer');
+const got = require('got');
 
-class PageScrapper {
-  /**
-   * Create new PageScrapper instance.
-   *
-   * @param {Boolean} options.silent
-   * @return {PageScrapper}
-   */
-  constructor({ silent = true } = {}) {
-    this.silent = silent;
-    this.browser = null;
+/**
+ * Get content type.
+ *
+ * @param {Object} headers
+ * @return {String|Null}
+ */
+const getContentType = headers => headers.hasOwnProperty('content-type')
+  ? headers['content-type']
+  : null;
+
+/**
+ * Check if content type is HTML.
+ *
+ * @param {Object} headers
+ * @return {Boolean}
+ */
+const isHtml = headers => {
+  const contentType = getContentType(headers);
+
+  if (null === contentType) {
+    return false;
   }
 
-  /**
-   * Open the given url.
-   *
-   * @param {String} url
-   * @return {Cheerio}
-   */
-  async open(url) {
-    if (null === this.browser) {
-      this.log('🚀 Launching browser...');
+  return /text\/html/i.test(contentType);
+};
 
-      this.browser = await puppeteer.launch();
-    }
+/**
+ * Create an error object.
+ *
+ * @param {String} message
+ * @param {Object} options.response
+ * @param {Object|Null} options.$
+ * @return {Error}
+ */
+const createError = (message, { response, $ = null }) => {
+  const error = new Error(message);
+  error.response = response;
 
-    const page = await this.browser.newPage();
+  if ($) {
+    error.$ = $;
+  }
 
-    this.log(`⏳ Opening url: ${url}...`);
+  return error;
+};
 
-    const response = await page.goto(url);
+/**
+ * Scrape the given url.
+ *
+ * @param {String} url
+ * @return {Cheerio}
+ */
+const scrape = async (url) => {
+  let response = null;
+  let httpError = false;
 
-    const content = await page.content();
-
-    await page.close();
-
-    const $ = cheerio.load(content);
-
-    if (!response.ok()) {
-      this.log(`⚠️ HTTP ${response.status()}: ${response.statusText()}`);
-
-      const error = new Error(response.statusText());
-
-      error.status = response.status();
-      error.$ = $;
-
+  try {
+    response = await got(url);
+  } catch (error) {
+    if (!error.hasOwnProperty('response')) {
       throw error;
     }
 
-    this.log(`✅ HTTP ${response.status()}: ${response.statusText()}`);
-
-    return $;
+    response = error.response;
+    httpError = true;
   }
 
-  /**
-   * Realease resources by closing the active browser.
-   *
-   * @return {Void}
-   */
-  async releaseResources() {
-    if (this.browser) {
-      this.log('🌬 Realeasing browser resources...');
-
-      await this.browser.close();
-
-      this.browser = null;
-    }
-
-    this.log('👍🏻 Browser resources are freed.');
+  if (!isHtml(response.headers)) {
+    throw createError('The page is not an HTML document.', { response });
   }
 
-  /**
-   * Log message.
-   *
-   * @param {String} message
-   * @return {Void}
-   */
-  log(message) {
-    if (!this.silent) {
-      console.log(message);
-    }
-  }
-}
+  const $ = cheerio.load(response.body);
 
-module.exports = PageScrapper;
+  if (httpError) {
+    throw createError(response.statusMessage, { response, $ });
+  }
+
+  return $;
+};
+
+module.exports = scrape;
