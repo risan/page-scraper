@@ -1,5 +1,5 @@
-const cheerio = require('cheerio');
-const got = require('got');
+const cheerio = require("cheerio");
+const got = require("got");
 
 /**
  * Check if object has the given property.
@@ -8,7 +8,8 @@ const got = require('got');
  * @param {String} prop
  * @return {Boolean}
  */
-const hasProperty = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop);
+const hasProperty = (obj, prop) =>
+  Object.prototype.hasOwnProperty.call(obj, prop);
 
 /**
  * Get content type.
@@ -16,9 +17,8 @@ const hasProperty = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, pro
  * @param {Object} headers
  * @return {String|Null}
  */
-const getContentType = headers => (hasProperty(headers, 'content-type')
-  ? headers['content-type']
-  : null);
+const getContentType = headers =>
+  hasProperty(headers, "content-type") ? headers["content-type"] : null;
 
 /**
  * Check if content type is HTML.
@@ -26,7 +26,7 @@ const getContentType = headers => (hasProperty(headers, 'content-type')
  * @param {Object} headers
  * @return {Boolean}
  */
-const isHtml = (headers) => {
+const isHtml = headers => {
   const contentType = getContentType(headers);
 
   if (contentType === null) {
@@ -61,14 +61,14 @@ const createError = (message, { res, $ = null }) => {
  * @param {String} url
  * @return {Cheerio}
  */
-const scrape = async (url) => {
+const scrape = async url => {
   let res = null;
   let httpError = false;
 
   try {
     res = await got(url);
   } catch (error) {
-    if (!hasProperty(error, 'response')) {
+    if (!hasProperty(error, "response")) {
       throw error;
     }
 
@@ -77,7 +77,7 @@ const scrape = async (url) => {
   }
 
   if (!isHtml(res.headers)) {
-    throw createError('The page is not an HTML document.', { res });
+    throw createError("The page is not an HTML document.", { res });
   }
 
   const $ = cheerio.load(res.body);
