@@ -1,5 +1,15 @@
-const cheerio = require('cheerio');
-const got = require('got');
+const cheerio = require("cheerio");
+const got = require("got");
+
+/**
+ * Check if object has the given property.
+ *
+ * @param {Object} obj
+ * @param {String} prop
+ * @return {Boolean}
+ */
+const hasProperty = (obj, prop) =>
+  Object.prototype.hasOwnProperty.call(obj, prop);
 
 /**
  * Get content type.
@@ -7,9 +17,8 @@ const got = require('got');
  * @param {Object} headers
  * @return {String|Null}
  */
-const getContentType = headers => headers.hasOwnProperty('content-type')
-  ? headers['content-type']
-  : null;
+const getContentType = headers =>
+  hasProperty(headers, "content-type") ? headers["content-type"] : null;
 
 /**
  * Check if content type is HTML.
@@ -20,7 +29,7 @@ const getContentType = headers => headers.hasOwnProperty('content-type')
 const isHtml = headers => {
   const contentType = getContentType(headers);
 
-  if (null === contentType) {
+  if (contentType === null) {
     return false;
   }
 
@@ -31,13 +40,13 @@ const isHtml = headers => {
  * Create an error object.
  *
  * @param {String} message
- * @param {Object} options.response
+ * @param {Object} options.res
  * @param {Object|Null} options.$
  * @return {Error}
  */
-const createError = (message, { response, $ = null }) => {
+const createError = (message, { res, $ = null }) => {
   const error = new Error(message);
-  error.response = response;
+  error.response = res;
 
   if ($) {
     error.$ = $;
@@ -52,29 +61,29 @@ const createError = (message, { response, $ = null }) => {
  * @param {String} url
  * @return {Cheerio}
  */
-const scrape = async (url) => {
-  let response = null;
+const scrape = async url => {
+  let res = null;
   let httpError = false;
 
   try {
-    response = await got(url);
+    res = await got(url);
   } catch (error) {
-    if (!error.hasOwnProperty('response')) {
+    if (!hasProperty(error, "response")) {
       throw error;
     }
 
-    response = error.response;
+    res = error.response;
     httpError = true;
   }
 
-  if (!isHtml(response.headers)) {
-    throw createError('The page is not an HTML document.', { response });
+  if (!isHtml(res.headers)) {
+    throw createError("The page is not an HTML document.", { res });
   }
 
-  const $ = cheerio.load(response.body);
+  const $ = cheerio.load(res.body);
 
   if (httpError) {
-    throw createError(response.statusMessage, { response, $ });
+    throw createError(res.statusMessage, { res, $ });
   }
 
   return $;
