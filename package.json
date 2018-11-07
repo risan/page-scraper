@@ -1,22 +1,14 @@
 {
   "name": "page-scraper",
-  "title": "Web page scraper for Node.js",
-  "version": "1.0.1",
   "description": "Web page scraper for Node.js.",
+  "version": "1.0.1",
+  "license": "MIT",
+  "homepage": "https://github.com/risan/page-scraper",
   "author": {
     "name": "Risan Bagja Pradana",
     "email": "risanbagja@gmail.com",
-    "url": "https://github.com/risan"
+    "url": "https://bagja.net"
   },
-  "license": "MIT",
-  "main": "index.js",
-  "scripts": {
-    "test": "mocha tests"
-  },
-  "keywords": [
-    "scraper",
-    "crawler"
-  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/risan/page-scraper.git"
@@ -24,13 +16,22 @@
   "bugs": {
     "url": "https://github.com/risan/page-scraper/issues"
   },
-  "homepage": "https://github.com/risan/page-scraper",
+  "keywords": [
+    "crawler",
+    "scraper"
+  ],
+  "main": "src/index.js",
+  "engines": {
+    "node": ">=7.6.0"
+  },
+  "scripts": {
+    "test": "jest"
+  },
   "dependencies": {
-    "cheerio": "^0.20.0",
-    "extend": "^3.0.0",
-    "request": "^2.69.0"
+    "cheerio": "^1.0.0-rc.2",
+    "got": "^9.3.1"
   },
   "devDependencies": {
-    "chai": "^3.5.0"
+    "jest": "^23.6.0"
   }
 }

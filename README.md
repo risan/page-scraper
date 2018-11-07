@@ -1,63 +1,104 @@
 # Page Scraper
 
-Web page scraper for Node.js based on [Request](https://github.com/request/request) and [Cheerio](https://github.com/cheeriojs/cheerio).
+Web page scraper with a jQuery-like syntax for Node. Powered by [got](https://github.com/sindresorhus/got) and [cheerio](https://cheerio.js.org/).
 
-## Dependencies
+## Requirement
 
-This module relies on the following packages to work:
-
-* [Request](https://github.com/request/request)
-* [Cheerio](https://github.com/cheeriojs/cheerio)
-* [Node Extend](https://github.com/justmoon/node-extend)
+* [Node](https://nodejs.org/) version `>= 7.6.0`
 
 ## Installation
 
-To install this package using [NPM](https://www.npmjs.com), simply run the following command inside your project directory:
-
 ```bash
-npm install page-scraper --save
+$ npm install page-scraper
+
+# Or if you use Yarn
+$ yarn add page-scraper
 ```
 
-The other way is to add the `page-scraper` package into your `package.json` dependencies list:
-
-```json
-"dependencies": {
-    "page-scraper": "^1.0.0"
-}
-```
-
-Once you've updated your `package.json` file, run the following command to install it:
-
-```bash
-npm install
-```
-
-## Basic Usage
-
-Here's some simple usage of this page scraper module.
+## Quick Start
 
 ```js
-// Import the Page Scraper module.
-var PageScraper = require('page-scraper');
+const scrape = require('page-scraper');
 
-// Create an instance of Page Scraper.
-var pageScraper = new PageScraper({
-    baseUrl: 'http://example.com'
-});
+(async () => {
+  const $ = await scrape('https://example.com');
 
-// Scrape the page http://example.com/foo
-pageScraper.scrape('/foo', function(error, $) {
-    // An error occured.
-    if (error) {
-        console.error(error);
-        return;
+  // Extract the page with jQuery like syntax.
+  console.log({
+    title: $('title').text(),
+    heading: $('h1').text(),
+    paragraphs: $('p').map((index, el) => $(el).text()).get(),
+    link: $('p > a').attr('href')
+  });
+})();
+```
+
+Check the [cheerio documentation](https://cheerio.js.org/) for a complete guide on how to scrape the page using jQuery like syntax.
+
+## Recipe
+
+### Handling Error
+
+```js
+const scrape = require('page-scraper');
+
+(async () => {
+  try {
+    const $ = await scrape('https://httpbin.org/status/400');
+  } catch(error) {
+    // The error message.
+    console.error(error.message);
+
+    if (error.hasOwnProperty('response')) {
+      // The HTTP status code.
+      console.error(error.response.statusCode);
     }
 
-    // Use the `$` to extract the page data.
-    var title = $('h1.page-title').text();
-    var content = $('p.page-content').text();
-
-    console.log(title);
-    console.log(content);
-});
+    if (error.hasOwnProperty('$')) {
+      // The HTML document.
+      console.error(error.$.html());
+    }
+  }
+})();
 ```
+
+Note that if the page is not an HTML document, it will throw an error too.
+
+```js
+const scrape = require('./src');
+
+(async () => {
+  try {
+    const $ = await scrape('https://httpbin.org/json');
+  } catch(error) {
+    console.error(error.message);
+
+    if (error.hasOwnProperty('response')) {
+      // The response body.
+      console.error(error.response.body);
+    }
+  }
+})();
+```
+
+### Scraping Multiple Pages
+
+```js
+const scrape = require('./src');
+
+(async () => {
+  const $ = await Promise.all([
+    scrape('https://example.com'),
+    scrape('https://httpbin.org/html')
+  ]);
+
+  console.log({
+    heading_1: $[0]('h1').text(),
+    heading_2: $[1]('h1').text()
+  });
+})();
+```
+
+## License
+
+MIT © [Risan Bagja Pradana](https://bagja.net)
