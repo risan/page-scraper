@@ -4,7 +4,7 @@ Web page scraper with a jQuery-like syntax for Node. Powered by [got](https://gi
 
 ## Requirement
 
-* [Node](https://nodejs.org/) version `>= 7.6.0`
+* [Node](https://nodejs.org/) version `>= 8.0.0`
 
 ## Installation
 
