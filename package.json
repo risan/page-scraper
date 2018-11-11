@@ -1,7 +1,7 @@
 {
   "name": "page-scraper",
   "description": "Web page scraper for Node.js.",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "license": "MIT",
   "homepage": "https://github.com/risan/page-scraper",
   "author": {
