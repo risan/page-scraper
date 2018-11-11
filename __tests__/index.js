@@ -1,4 +1,4 @@
-/* global test:false, expect:false */
+/* global jest:false, test:false, expect:false */
 const got = require("got");
 const scrape = require("../src");
 
@@ -32,9 +32,9 @@ test("it can scrape a page", async () => {
 });
 
 test("it throws an error on http exception", async () => {
-  const error = new Error();
+  const errorValue = new Error();
 
-  error.response = {
+  errorValue.response = {
     statusCode: 400,
     statusMessage: "bad request",
     headers: {
@@ -43,7 +43,7 @@ test("it throws an error on http exception", async () => {
     body
   };
 
-  got.mockRejectedValue(error);
+  got.mockRejectedValue(errorValue);
 
   expect.assertions(4);
 
