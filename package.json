@@ -1,28 +1,25 @@
 {
   "name": "page-scraper",
+  "version": "2.0.3",
   "description": "Web page scraper for Node.js.",
-  "version": "2.0.2",
-  "license": "MIT",
+  "keywords": [
+    "crawler",
+    "scraper"
+  ],
   "homepage": "https://github.com/risan/page-scraper",
+  "bugs": {
+    "url": "https://github.com/risan/page-scraper/issues"
+  },
+  "license": "MIT",
   "author": {
     "name": "Risan Bagja Pradana",
     "email": "risanbagja@gmail.com",
     "url": "https://bagja.net"
   },
+  "main": "src/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/risan/page-scraper.git"
-  },
-  "bugs": {
-    "url": "https://github.com/risan/page-scraper/issues"
-  },
-  "keywords": [
-    "crawler",
-    "scraper"
-  ],
-  "main": "src/index.js",
-  "engines": {
-    "node": ">=8.0.0"
   },
   "scripts": {
     "lint": "eslint ./",
@@ -32,15 +29,18 @@
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
-    "got": "^9.3.1"
+    "got": "9.x"
   },
   "devDependencies": {
-    "eslint": "^5.8.0",
+    "eslint": "^5.9.0",
     "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-config-prettier": "^3.1.0",
+    "eslint-config-prettier": "^3.3.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-prettier": "^3.0.0",
     "jest": "^23.6.0",
-    "prettier": "^1.15.1"
+    "prettier": "^1.15.2"
+  },
+  "engines": {
+    "node": ">=8.0.0"
   }
 }

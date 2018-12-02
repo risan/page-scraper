@@ -14,7 +14,7 @@ Web page scraper with a jQuery-like syntax for Node. Powered by [got](https://gi
 
 * [Node](https://nodejs.org/) version `>= 8.0.0`
 
-## Installation
+## Install
 
 ```bash
 $ npm install page-scraper
