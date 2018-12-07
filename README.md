@@ -1,29 +1,19 @@
 # Page Scraper
 
-[![Build Status](https://flat.badgen.net/travis/risan/page-scraper)](https://travis-ci.org/risan/page-scraper)
-[![Test Coverage](https://flat.badgen.net/codeclimate/coverage/risan/page-scraper)](https://codeclimate.com/github/risan/page-scraper)
-[![Maintainability](https://flat.badgen.net/codeclimate/maintainability/risan/page-scraper)](https://codeclimate.com/github/risan/page-scraper)
-[![Latest Stable Version](https://flat.badgen.net/npm/v/page-scraper)](https://www.npmjs.com/package/page-scraper)
-[![Node Version](https://flat.badgen.net/npm/node/page-scraper)](https://www.npmjs.com/package/page-scraper)
-[![Code Style: Prettier](https://flat.badgen.net/badge/code%20style/prettier/ff69b4)](https://github.com/prettier/prettier)
-[![License](https://flat.badgen.net/npm/license/page-scraper)](https://github.com/risan/page-scraper/blob/master/LICENSE)
+[![Build Status](https://badgen.net/travis/risan/npm-boilerplate-node)](https://travis-ci.org/risan/npm-boilerplate-node)
+[![Test Covarage](https://badgen.net/codecov/c/github/risan/npm-boilerplate-node)](https://codecov.io/gh/risan/npm-boilerplate-node)
+[![Greenkeeper](https://badges.greenkeeper.io/risan/npm-boilerplate-node.svg)](https://greenkeeper.io)
+[![Latest Version](https://badgen.net/npm/v/npm-boilerplate-node)](https://www.npmjs.com/package/npm-boilerplate-node)
 
-Web page scraper with a jQuery-like syntax for Node. Powered by [got](https://github.com/sindresorhus/got) and [cheerio](https://cheerio.js.org/).
+Web page scraper with a jQuery-like syntax for Node. Powered by [got](https://github.com/sindresorhus/got) and [cheerio](https://cheerio.js.org).
 
-## Requirement
-
-* [Node](https://nodejs.org/) version `>= 8.0.0`
-
-## Install
+## Installation
 
 ```bash
 $ npm install page-scraper
-
-# Or if you use Yarn
-$ yarn add page-scraper
 ```
 
-## Quick Start
+## Usage
 
 ```js
 const scrape = require('page-scraper');
@@ -43,7 +33,7 @@ const scrape = require('page-scraper');
 
 Check the [cheerio documentation](https://cheerio.js.org/) for a complete guide on how to scrape the page using jQuery like syntax.
 
-## Recipe
+## Recipes
 
 ### Handling Error
 
@@ -109,4 +99,4 @@ const scrape = require('./src');
 
 ## License
 
-MIT © [Risan Bagja Pradana](https://bagja.net)
+[MIT](https://github.com/risan/page-scraper/blob/master/LICENSE) © [Risan Bagja Pradana](https://bagja.net)
