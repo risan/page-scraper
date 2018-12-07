@@ -1,6 +1,6 @@
 {
   "name": "page-scraper",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "Web page scraper with a jQuery-like syntax for Node.",
   "keywords": [
     "crawler",
